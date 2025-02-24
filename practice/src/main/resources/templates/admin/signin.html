@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>管理者のログイン画面</title>
+</head>
+
+<body>
+	<h1>ログイン</h1>
+	<div th:if="${error}" style="color: red;">
+		<p th:text="${error}"></p>
+	</div>
+
+	<form th:action="@{/admin/signin}" th:object="${adminForm}" method="post">
+		<table border="1">
+			<tr>
+				<td>メールアドレス</td>
+				<td>
+					<input type="email" name="email" th:field="*{email}">
+					<span th:text="*{email}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>パスワード</td>
+				<td>
+					<input type="password" th:field="*{password}">
+					<span th:text="*{password}"></span>
+				</td>
+			</tr>
+		</table>
+		<input type="submit" value="ログイン">
+	</form>
+
+
+</body>
+
+</html>

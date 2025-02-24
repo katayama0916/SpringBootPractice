@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>お問い合わせの一覧画面（ログイン後のTOP画面）</title>
+</head>
+
+<body>
+	<h1>お問い合わせ一覧</h1>
+
+	<p th:if="${adminDetails != null}">
+		ログインユーザー: <span th:text="${adminDetails.firstName}">First Name</span>
+		<span th:text="${adminDetails.lastName}">Last Name</span>
+	</p>
+	<p th:unless="${adminDetails != null}">
+		ログイン情報がありません。ログインしてください。
+	</p>
+
+	<table border="1">
+		<thead>
+			<tr>
+				<th>お問い合わせID</th>
+				<th>姓</th>
+				<th>名</th>
+				<th>お問い合わせ種別</th>
+				<th>作成日時</th>
+				<th>更新日時</th>
+				<th>詳細</th>
+				<th>編集</th>
+				<th>削除</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="contact : ${contacts}">
+				<td th:text="${contact.id}"></td>
+				<td th:text="${contact.lastName}"></td>
+				<td th:text="${contact.firstName}"></td>
+				<td th:text="${#strings.isEmpty(contact.contactType) ? '未設定' : contact.contactType}"></td>
+				<td th:text="${#temporals.format(contact.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+				<td th:text="${#temporals.format(contact.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+				<td><a th:href="@{/admin/contacts/{id}(id=${contact.id})}">詳細</a></td>
+				<td><a th:href="@{/admin/contacts/{id}/edit(id=${contact.id})}">編集</a></td>
+				<td>
+					<form th:action="@{/admin/contacts/{id}/delete(id=${contact.id})}" method="post">
+						<button type="submit" onclick="return confirm('本当に削除しますか？');">削除</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+
+
+	<form action="/admin/logout" method="post">
+		<button type="submit">ログアウト</button>
+	</form>
+
+</body>
+
+</html>

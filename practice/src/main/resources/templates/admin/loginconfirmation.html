@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>登録内容の確認</title>
+</head>
+
+<body>
+	<h1>登録内容の確認</h1>
+	<form action="/admin/loginconfirmation" th:object="${adminForm}" method="post">
+		<table border="1">
+			<tr>
+				<td>姓</td>
+				<td>
+					<span th:text="${adminForm.lastName}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>名</td>
+				<td>
+					<span th:text="${adminForm.firstName}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>メールアドレス</td>
+				<td>
+					<span th:text="${adminForm.email}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>パスワード</td>
+				<td>
+					<span th:text="${adminForm.rawPassword}"></span>
+				</td>
+			</tr>
+
+		</table>
+		<input type="submit" value="送信">
+	</form>
+</body>
+
+</html>
